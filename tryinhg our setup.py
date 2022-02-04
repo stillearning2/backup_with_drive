@@ -32,7 +32,10 @@ def time_extract():
     for filename in dir_list:
         fileinfo = get_file_metadata(folder, filename, metadata)
         all_file_metadata.append(fileinfo)
-        if (datetime.strptime(dt_string,"%d-%m-%Y %H:%M")-datetime.strptime(fileinfo['Date modified'],"%d-%m-%Y %H:%M")).total_seconds()/3600 <24:
+        second_time=fileinfo['Date modified'].strip()
+        if fileinfo['Date modified'].strip()[-1].upper()=='M':
+            second_time=fileinfo['Date modified'][:-2].strip()
+        if (datetime.strptime(dt_string,"%d-%m-%Y %H:%M")-datetime.strptime(second_time,"%d-%m-%Y %H:%M")).total_seconds()/3600 <24:
             lst.append(fileinfo)
     return lst
 
