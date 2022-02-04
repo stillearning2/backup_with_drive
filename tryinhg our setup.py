@@ -73,13 +73,6 @@ class MyDrive():
         pageSize=page_size, fields="nextPageToken, files(id, name)").execute()
         items = results.get('files', [])
 
-        # if not items:
-        #     print('No files found.')
-        # else:
-        #     print('Files:')
-        # for item in items:
-        #     print(u'{0} ({1})'.format(item['name'], item['id']))
-
     def upload_file(self, filename, path,cmplist,modified_time_list):
         folder_id = "1dmGQwAGGjRb4V47rrKmCY_SD8un-nJfl"
         media = MediaFileUpload(f"{path}{filename}")
@@ -89,9 +82,8 @@ class MyDrive():
                                         spaces='drive',
                                         fields='nextPageToken, files(name,id)',
                                         pageToken=None).execute()
-        #print(response)
+        
         x=response['files']
-        #print(x)
 
         if len(response['files']) == 0:
             file_metadata = {
@@ -127,9 +119,7 @@ class MyDrive():
                         t=file['name']
                         ind=t.index('.')
                         t=t[:ind]
-                        #print(name_check["Name"])
                         if(name_check["Name"]==t):
-                            #print(t)
                             update_file = self.service.files().update(
                                 fileId=file.get('id'),
                                 media_body=media,
@@ -180,7 +170,6 @@ def main():
         if(drfls.get('mimeType')=='application/vnd.google-apps.folder'):
             my_drive.get_files_from_folder(drive_updated,cmplist,folder_id=drfls.get('id'))
             continue
-        #print(u'{0} ({1})'.format(drfls['name'], drfls['id']))
 
     #from local folder
     my_drive.list_files()
