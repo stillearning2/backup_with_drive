@@ -195,5 +195,3 @@ if __name__ == '__main__':
     except Exception as e:
         with open('log.txt','a') as log_file:
             print(dt_string, "backup_failed", e, file=log_file)
-    with open('log.txt','a') as log_file:
-        print("-"*100, file=log_file)
